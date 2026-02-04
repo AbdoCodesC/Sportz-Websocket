@@ -1,8 +1,21 @@
-import { pgTable, serial, varchar, timestamp, integer, text, jsonb, pgEnum } from 'drizzle-orm/pg-core';
+import {
+  pgTable,
+  serial,
+  varchar,
+  timestamp,
+  integer,
+  text,
+  jsonb,
+  pgEnum,
+} from 'drizzle-orm/pg-core';
 import { relations } from 'drizzle-orm';
 
 // Enum for match status
-export const matchStatusEnum = pgEnum('match_status', ['scheduled', 'live', 'finished']);
+export const matchStatusEnum = pgEnum('match_status', [
+  'scheduled',
+  'live',
+  'finished',
+]);
 
 // Matches table
 export const matches = pgTable('matches', {
@@ -36,7 +49,7 @@ export const commentary = pgTable('commentary', {
   createdAt: timestamp('created_at').defaultNow().notNull(),
 });
 
-// Relations
+// Relations: Matches to Commentary
 export const matchesRelations = relations(matches, ({ many }) => ({
   commentary: many(commentary),
 }));

@@ -29,6 +29,7 @@ const createMatchSchema = z
     awayScore: z.coerce.number().int().nonnegative().optional(),
   })
   .superRefine((data, ctx) => {
+    // Custom validation: endTime must be after startTime // .superRefine to add custom validation
     const start = Date.parse(data.startTime);
     const end = Date.parse(data.endTime);
     if (!isNaN(start) && !isNaN(end) && end <= start) {
