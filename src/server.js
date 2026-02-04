@@ -35,6 +35,7 @@ export function attachWebSocketServer(server) {
       } catch (err) {
         console.error('WebSocket ArcJet error:', err);
         socket.close(1011, 'Server security error');
+        return;
       }
     }
     socket.isAlive = true;

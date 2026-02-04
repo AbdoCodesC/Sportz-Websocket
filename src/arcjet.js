@@ -8,7 +8,7 @@ import arcjet, {
 const arcjetKey = process.env.ARCJET_KEY;
 const arcjetMode = process.env.ARCJET_MODE === 'DRY_RUN' ? 'DRY_RUN' : 'LIVE';
 
-if (!arcjetKey) throw new Error('ARCJET_KEY is not set in .env file');
+// if (!arcjetKey) throw new Error('ARCJET_KEY is not set in .env file');
 
 export const httpArcJet = arcjetKey
   ? arcjet({

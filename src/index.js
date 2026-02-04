@@ -12,13 +12,14 @@ const server = http.createServer(app);
 
 // JSON middleware
 app.use(express.json());
+// Security middleware
+app.use(securityMiddleware());
+
 
 // Root GET route
 app.get('/', (req, res) => {
   res.json({ message: 'Hello from Express server!' });
 });
-
-app.use(securityMiddleware());
 
 app.use('/matches', matchRouter);
 
