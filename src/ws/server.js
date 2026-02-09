@@ -62,14 +62,14 @@ function handleMessage(socket, data) {
     return;
   }
 
-  if (message?.type === 'subscribe' && Number.isInteger(message.matchId)) {
+  if (message?.type === 'subscribe' && Number.isInteger(message.matchId) && message.matchId >= 0) {
     subscribe(message.matchId, socket);
     socket.subscriptions.add(message.matchId);
     sendJson(socket, { type: 'subscribed', matchId: message.matchId });
     return;
   }
 
-  if (message?.type === 'unsubscribe' && Number.isInteger(message.matchId)) {
+  if (message?.type === 'unsubscribe' && Number.isInteger(message.matchId) && message.matchId >= 0) {
     unsubscribe(message.matchId, socket);
     socket.subscriptions.delete(message.matchId);
     sendJson(socket, { type: 'unsubscribed', matchId: message.matchId });
