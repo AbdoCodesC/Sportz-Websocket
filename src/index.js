@@ -1,7 +1,8 @@
 import express from 'express';
 import http from 'http';
 import { matchRouter } from './routes/matches.js';
-import { attachWebSocketServer } from './server.js';
+import { commentaryRouter } from './routes/commentary.js';
+import { attachWebSocketServer } from './ws/server.js';
 import { securityMiddleware } from './arcjet.js';
 
 const PORT = Number(process.env.PORT || 8000);
@@ -15,16 +16,18 @@ app.use(express.json());
 // Security middleware
 app.use(securityMiddleware());
 
-
 // Root GET route
 app.get('/', (req, res) => {
   res.json({ message: 'Hello from Express server!' });
 });
 
 app.use('/matches', matchRouter);
+app.use('/matches/commentary', commentaryRouter);
 
-const { broadcastMatchCreated } = attachWebSocketServer(server);
+const { broadcastMatchCreated, broadcastCommentary } =
+  attachWebSocketServer(server);
 app.locals.broadcastMatchCreated = broadcastMatchCreated;
+app.locals.broadcastCommentary = broadcastCommentary;
 
 // Start server (HTTP + WebSocket)
 server.listen(PORT, HOST, () => {
