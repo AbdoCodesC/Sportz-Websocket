@@ -1,3 +1,6 @@
+import AgentApi from "apminsight"
+AgentApi.config();
+
 import express from 'express';
 import http from 'http';
 import { matchRouter } from './routes/matches.js';
@@ -19,6 +22,10 @@ app.use(securityMiddleware());
 // Root GET route
 app.get('/', (req, res) => {
   res.json({ message: 'Hello from Express server!' });
+});
+
+app.get('/healthz', (req, res) => {
+  res.json({ status: 'ok' });
 });
 
 app.use('/matches', matchRouter);
