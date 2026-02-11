@@ -17,7 +17,7 @@ const server = http.createServer(app);
 // JSON middleware
 app.use(express.json());
 // Security middleware
-app.use(securityMiddleware());
+// app.use(securityMiddleware());
 
 // Root GET route
 app.get('/', (req, res) => {
